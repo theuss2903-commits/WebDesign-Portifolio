@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lição de JavaScript – interações na página</title>
+
+  <!-- CSS base (da lição anterior) + CSS desta lição -->
+  <link rel="stylesheet" href="style.css">
+
+  <!-- JavaScript em arquivo separado. O "defer" espera o HTML carregar antes de rodar -->
+  <script src="licao-js.js" defer></script>
+</head>
+<body>
+
+  <header>
+    <h1>Lição de JavaScript</h1>
+    <p>Tornando a página dinâmica: o usuário clica e a página responde.</p>
+
+    <nav aria-label="Menu da lição">
+      <ul>
+        <li><a href="#organizacao">Organização</a></li>
+        <li><a href="#elementos">Elementos</a></li>
+        <li><a href="#click">Evento click</a></li>
+        <li><a href="#estilos">Texto, cor e estilo</a></li>
+        <li><a href="#outros-eventos">Outros eventos</a></li>
+        <li><a href="#projeto">Página interativa</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+
+    <!-- 1. ORGANIZAÇÃO -->
+    <section id="organizacao">
+      <h2>1. Organizando o JavaScript junto ao HTML</h2>
+      <p>
+        O HTML cria a estrutura, o CSS cuida da aparência e o JavaScript cuida do
+        <strong>comportamento</strong>. O jeito mais organizado é manter o código em um
+        arquivo <code>.js</code> separado e ligá-lo ao HTML com a tag <code>&lt;script&gt;</code>.
+      </p>
+
+      <pre><code>&lt;head&gt;
+  &lt;link rel="stylesheet" href="estilo.css"&gt;
+  &lt;script src="script.js" defer&gt;&lt;/script&gt;
+&lt;/head&gt;</code></pre>
+
+      <p>
+        O atributo <code>defer</code> faz o navegador carregar o HTML inteiro antes de executar
+        o script, então os elementos já existem quando o código tentar encontrá-los. Outra opção
+        é colocar o <code>&lt;script&gt;</code> no fim do <code>&lt;body&gt;</code>.
+        Também é possível escrever o código direto entre as tags, mas misturar tudo dificulta a manutenção.
+      </p>
+    </section>
+
+    <!-- 2. ELEMENTOS -->
+    <section id="elementos">
+      <h2>2. Manipulando elementos da página</h2>
+      <p>
+        Primeiro o JavaScript precisa <strong>encontrar</strong> o elemento
+        (<code>getElementById</code>, <code>querySelector</code>) e depois
+        <strong>alterar</strong> o que quiser, como o texto com <code>textContent</code>.
+      </p>
+
+      <div class="demo">
+        <p id="mensagem" aria-live="polite">Esta é a mensagem original.</p>
+        <div class="botoes">
+          <button type="button" class="botao botao--primario" id="btn-trocar">Trocar texto</button>
+          <button type="button" class="botao botao--contorno" id="btn-restaurar">Restaurar</button>
+        </div>
+      </div>
+
+      <pre><code>const mensagem = document.getElementById('mensagem');
+const botao = document.getElementById('btn-trocar');
+
+botao.addEventListener('click', function () {
+  mensagem.textContent = 'O JavaScript trocou este texto!';
+});</code></pre>
+    </section>
+
+    <!-- 3. EVENTO CLICK -->
+    <section id="click">
+      <h2>3. Interações com botões: o evento click</h2>
+      <p>
+        Um <strong>evento</strong> é algo que acontece na página. Com
+        <code>addEventListener('click', ...)</code> dizemos: "quando clicarem aqui, execute esta função".
+        No exemplo, uma variável guarda o valor e a função atualiza a tela.
+      </p>
+
+      <div class="demo">
+        <div class="contador">
+          <button type="button" class="botao botao--contorno" id="btn-menos" aria-label="Diminuir">−</button>
+          <output id="contador" aria-live="polite">0</output>
+          <button type="button" class="botao botao--primario" id="btn-mais" aria-label="Aumentar">+</button>
+          <button type="button" class="botao botao--crescer" id="btn-zerar">Zerar</button>
+        </div>
+      </div>
+
+      <pre><code>let contagem = 0;
+const contador = document.getElementById('contador');
+
+document.getElementById('btn-mais').addEventListener('click', function () {
+  contagem++;
+  contador.textContent = contagem;
+});</code></pre>
+    </section>
+
+    <!-- 4. TEXTO, COR E ESTILO -->
+    <section id="estilos">
+      <h2>4. Alterando cor e estilo por eventos</h2>
+      <p>
+        A propriedade <code>style</code> muda o CSS direto no elemento. Já o
+        <code>classList.toggle</code> liga e desliga uma classe que já existe no CSS, o que
+        deixa o código mais limpo.
+      </p>
+
+      <div class="demo">
+        <div class="caixa-cor" id="caixa-cor">Eu mudo de cor e de estilo!</div>
+
+        <div class="botoes">
+          <button type="button" class="botao botao--primario" data-cor="#2748d9">Azul</button>
+          <button type="button" class="botao botao--primario" data-cor="#1e7a46">Verde</button>
+          <button type="button" class="botao botao--primario" data-cor="#c2185b">Rosa</button>
+          <button type="button" class="botao botao--contorno" id="btn-destaque" aria-pressed="false">Alternar destaque</button>
+          <button type="button" class="botao botao--crescer" id="btn-limpar">Limpar</button>
+        </div>
+      </div>
+
+      <pre><code>const caixa = document.getElementById('caixa-cor');
+
+// vários botões com o mesmo comportamento
+document.querySelectorAll('[data-cor]').forEach(function (botao) {
+  botao.addEventListener('click', function () {
+    caixa.style.backgroundColor = botao.dataset.cor;
+    caixa.style.color = '#ffffff';
+  });
+});
+
+// liga e desliga uma classe do CSS
+caixa.classList.toggle('caixa-cor--destaque');</code></pre>
+    </section>
+
+    <!-- 5. OUTROS EVENTOS -->
+    <section id="outros-eventos">
+      <h2>5. Outros eventos além do click</h2>
+      <p>
+        O <code>click</code> é só o começo. Também dá para reagir ao mouse passando por cima
+        (<code>mouseover</code> e <code>mouseout</code>), ao teclado e à digitação
+        (<code>input</code>).
+      </p>
+
+      <div class="demo">
+        <div class="hover-card" id="hover-card" tabindex="0">Passe o mouse aqui</div>
+      </div>
+
+      <div class="demo">
+        <label for="campo-nome">Digite seu nome</label>
+        <input type="text" id="campo-nome" autocomplete="off">
+        <p class="saudacao">Olá, <strong id="nome-saida">visitante</strong>!</p>
+      </div>
+
+      <pre><code>const campo = document.getElementById('campo-nome');
+const saida = document.getElementById('nome-saida');
+
+campo.addEventListener('input', function () {
+  saida.textContent = campo.value.trim() || 'visitante';
+});</code></pre>
+    </section>
+
+    <!-- 6. PROJETO -->
+    <section id="projeto">
+      <h2>6. Projeto: página interativa simples</h2>
+      <p>
+        Um cartão de perfil que reúne tudo: seleção de elementos, eventos de click,
+        troca de texto, de cor e de estilo.
+      </p>
+
+      <article class="perfil" id="perfil">
+        <header class="perfil-topo">
+          <div class="perfil-avatar" id="perfil-avatar" aria-hidden="true">M</div>
+          <div>
+            <h3>Matheus</h3>
+            <p>Estudante de desenvolvimento web</p>
+          </div>
+        </header>
+
+        <p id="perfil-sobre" hidden>
+          Estou aprendendo HTML, CSS e JavaScript e criando minhas primeiras páginas interativas.
+        </p>
+
+        <div class="perfil-acoes">
+          <button type="button" class="botao botao--primario" id="btn-curtir">
+            Curtir (<span id="curtidas">0</span>)
+          </button>
+          <button type="button" class="botao botao--contorno" id="btn-sobre" aria-expanded="false" aria-controls="perfil-sobre">
+            Mostrar sobre mim
+          </button>
+          <button type="button" class="botao botao--contorno" id="btn-tema" aria-pressed="false">
+            Tema escuro
+          </button>
+          <button type="button" class="botao botao--crescer" id="btn-avatar">
+            Cor do avatar
+          </button>
+        </div>
+      </article>
+    </section>
+
+  </main>
+
+  <aside>
+    <h2>Resumo da lição</h2>
+    <dl>
+      <dt>getElementById</dt>
+      <dd>Encontra um elemento pelo id.</dd>
+
+      <dt>querySelector / querySelectorAll</dt>
+      <dd>Encontram elementos com um seletor CSS.</dd>
+
+      <dt>addEventListener</dt>
+      <dd>Executa uma função quando um evento acontece.</dd>
+
+      <dt>textContent</dt>
+      <dd>Lê ou troca o texto de um elemento.</dd>
+
+      <dt>style</dt>
+      <dd>Muda o CSS direto no elemento.</dd>
+
+      <dt>classList</dt>
+      <dd>Adiciona, remove ou alterna classes.</dd>
+
+      <dt>hidden</dt>
+      <dd>Esconde ou mostra um elemento.</dd>
+
+      <dt>defer</dt>
+      <dd>Roda o script depois do HTML carregar.</dd>
+    </dl>
+  </aside>
+
+  <footer>
+    <p><small>&copy; 2026 Matheus. Lição de JavaScript.</small></p>
+  </footer>
+<script src="script.js"></script>
+</body>
+</html>

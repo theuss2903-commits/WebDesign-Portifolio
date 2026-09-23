@@ -1,0 +1,773 @@
+/* ==========================================================
+   Lição de CSS
+   1. Variáveis  2. Reset  3. Base  4. Layout da página
+   5. Seções da lição  6. Botões  7. Projeto final  8. Acessibilidade
+   ========================================================== */
+
+/* ---------- 1. Variáveis ---------- */
+:root {
+  --cor-fundo: #f5f7fa;
+  --cor-superficie: #ffffff;
+  --cor-texto: #1b2333;
+  --cor-texto-suave: #55607a;
+  --cor-destaque: #2748d9;
+  --cor-destaque-escura: #1c34a3;
+  --cor-borda: #d9dfeb;
+
+  --fonte-texto: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --fonte-titulo: Georgia, "Times New Roman", serif;
+  --fonte-codigo: ui-monospace, Menlo, Consolas, monospace;
+
+  --raio: 8px;
+  --espaco: 1.5rem;
+}
+
+/* ---------- 2. Reset ---------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+/* ---------- 3. Base ---------- */
+body {
+  font-family: var(--fonte-texto);
+  font-size: 1.0625rem;
+  line-height: 1.65;
+  color: var(--cor-texto);
+  background: var(--cor-fundo);
+}
+
+h1, h2, h3, h4, h5 {
+  font-family: var(--fonte-titulo);
+  line-height: 1.2;
+  margin: 0 0 0.6em;
+}
+
+h1 { font-size: clamp(2rem, 5vw, 2.75rem); }
+h2 { font-size: 1.6rem; }
+h3 { font-size: 1.35rem; }
+h4 { font-size: 1.2rem; }
+h5 { font-size: 1.05rem; }
+
+p {
+  margin: 0 0 1em;
+  max-width: 68ch;
+}
+
+a {
+  color: var(--cor-destaque);
+  text-underline-offset: 3px;
+}
+
+a:hover {
+  color: var(--cor-destaque-escura);
+}
+
+:focus-visible {
+  outline: 3px solid var(--cor-destaque);
+  outline-offset: 2px;
+}
+
+/* Código */
+code {
+  font-family: var(--fonte-codigo);
+  font-size: 0.9em;
+}
+
+:not(pre) > code {
+  padding: 0.1em 0.4em;
+  background: #e6ebf7;
+  border-radius: 4px;
+}
+
+pre {
+  margin: 1rem 0 0;
+  padding: 1rem;
+  overflow-x: auto;
+  color: #e8ecf5;
+  background: var(--cor-texto);
+  border-radius: var(--raio);
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+/* ---------- 4. Layout da página (Grid) ---------- */
+body {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--espaco);
+  max-width: 1040px;
+  margin-inline: auto;
+  padding: var(--espaco);
+}
+
+@media (min-width: 900px) {
+  body {
+    grid-template-columns: minmax(0, 1fr) 280px;
+    align-items: start;
+  }
+
+  body > header,
+  body > footer {
+    grid-column: 1 / -1;
+  }
+
+  aside {
+    position: sticky;
+    top: var(--espaco);
+  }
+}
+
+/* Cabeçalho e menu (Flexbox) */
+body > header {
+  padding-bottom: var(--espaco);
+  border-bottom: 2px solid var(--cor-texto);
+}
+
+body > header p {
+  color: var(--cor-texto-suave);
+  margin-bottom: 1rem;
+}
+
+nav ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+body > header nav a {
+  display: inline-block;
+  padding: 0.4rem 0.9rem;
+  border-radius: var(--raio);
+  color: var(--cor-texto);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+body > header nav a:hover {
+  background: var(--cor-destaque);
+  color: #fff;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}
+
+main > section > h2 {
+  padding-bottom: 0.4rem;
+  border-bottom: 1px solid var(--cor-borda);
+}
+
+/* Barra lateral */
+aside {
+  padding: var(--espaco);
+  background: var(--cor-superficie);
+  border-left: 4px solid var(--cor-destaque);
+  border-radius: 0 var(--raio) var(--raio) 0;
+}
+
+aside h2 {
+  font-size: 1.2rem;
+}
+
+dt {
+  font-weight: 700;
+}
+
+dd {
+  margin: 0 0 0.75rem;
+  color: var(--cor-texto-suave);
+  font-size: 0.95rem;
+}
+
+/* Rodapé */
+body > footer {
+  padding-top: var(--espaco);
+  border-top: 1px solid var(--cor-borda);
+  color: var(--cor-texto-suave);
+}
+
+body > footer p {
+  margin: 0;
+}
+
+/* ---------- 5. Seções da lição ---------- */
+
+/* Área de demonstração */
+.demo {
+  margin: 1rem 0;
+  padding: 1rem;
+  background: var(--cor-superficie);
+  border: 1px dashed var(--cor-texto-suave);
+  border-radius: var(--raio);
+}
+
+.demo p:last-child {
+  margin-bottom: 0;
+}
+
+/* 1. Seletores */
+.destaque {
+  background: #fff3b0;
+  font-weight: 700;
+}
+
+#aviso {
+  padding-left: 1rem;
+  border-left: 4px solid var(--cor-destaque);
+}
+
+.marca {
+  color: #c2185b;
+  text-decoration: underline;
+}
+
+/* 2. Classes e IDs */
+.cartoes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin: 1rem 0;
+}
+
+.cartao {
+  flex: 1 1 160px;
+  padding: 1rem;
+  background: var(--cor-superficie);
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio);
+}
+
+.cartao--ouro {
+  background: #fff8dc;
+  border-color: #c9a227;
+}
+
+#cartao-unico {
+  border: 3px double var(--cor-destaque);
+}
+
+.cartao small {
+  color: var(--cor-texto-suave);
+  font-family: var(--fonte-codigo);
+}
+
+/* 3. Box Model */
+figure {
+  margin: 1.25rem 0;
+}
+
+figcaption {
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
+  color: var(--cor-texto-suave);
+}
+
+.bm {
+  padding: 1rem;
+  text-align: center;
+}
+
+.bm > span {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.bm-margem {
+  max-width: 460px;
+  padding: 1.25rem;
+  background: #fbd9b5;
+  border-radius: var(--raio);
+}
+
+.bm-borda {
+  background: #f4b6b6;
+  border: 6px solid var(--cor-texto);
+}
+
+.bm-padding {
+  background: #bfe3b8;
+}
+
+.bm-conteudo {
+  padding: 1rem;
+  background: #a9c8f5;
+  font-weight: 700;
+}
+
+/* 4. Flexbox */
+.flex-linha {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+.flex-quebra {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.flex-quebra .flex-item {
+  flex: 1 1 140px;
+}
+
+.flex-item {
+  padding: 1rem;
+  color: #fff;
+  background: var(--cor-destaque);
+  border-radius: var(--raio);
+  text-align: center;
+}
+
+.flex-item--alto {
+  padding-block: 2.25rem;
+}
+
+/* 5. Grid (mobile primeiro: uma coluna) */
+.grid-pagina {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-areas:
+    "topo"
+    "menu"
+    "conteudo"
+    "rodape";
+  gap: 0.5rem;
+  margin: 1rem 0;
+}
+
+.gp {
+  padding: 1rem;
+  border-radius: var(--raio);
+  text-align: center;
+  font-weight: 700;
+}
+
+.gp-topo     { grid-area: topo;     background: #cfd9fb; }
+.gp-menu     { grid-area: menu;     background: #d9f0d6; }
+.gp-conteudo { grid-area: conteudo; background: #fff3b0; min-height: 110px; }
+.gp-rodape   { grid-area: rodape;   background: #f4d3d3; }
+
+@media (min-width: 600px) {
+  .grid-pagina {
+    grid-template-columns: 1fr 3fr;
+    grid-template-areas:
+      "topo   topo"
+      "menu   conteudo"
+      "rodape rodape";
+  }
+}
+
+/* 6. Responsivo */
+.grade-responsiva {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  margin: 1rem 0;
+}
+
+.mini-card {
+  padding: 1.5rem 1rem;
+  color: #fff;
+  background: var(--cor-destaque);
+  border-radius: var(--raio);
+  text-align: center;
+  font-weight: 700;
+}
+
+@media (min-width: 600px) {
+  .grade-responsiva {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 960px) {
+  .grade-responsiva {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* Tabela (com rolagem própria em telas pequenas) */
+table {
+  display: block;
+  width: 100%;
+  margin-top: 1rem;
+  overflow-x: auto;
+  border-collapse: collapse;
+  background: var(--cor-superficie);
+}
+
+caption {
+  padding: 0.5rem 0;
+  text-align: left;
+  font-weight: 700;
+}
+
+th,
+td {
+  padding: 0.6rem 0.8rem;
+  border: 1px solid var(--cor-borda);
+  text-align: left;
+  white-space: nowrap;
+}
+
+thead th {
+  background: var(--cor-texto);
+  color: #fff;
+}
+
+/* ---------- 6. Botões com transição ---------- */
+.botoes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.botao {
+  padding: 0.7rem 1.4rem;
+  font: inherit;
+  font-weight: 600;
+  border: 2px solid var(--cor-destaque);
+  border-radius: var(--raio);
+  cursor: pointer;
+  transition:
+    background-color 0.25s ease,
+    color 0.25s ease,
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.botao--primario {
+  color: #fff;
+  background: var(--cor-destaque);
+}
+
+.botao--primario:hover {
+  background: var(--cor-destaque-escura);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 14px rgba(39, 72, 217, 0.35);
+}
+
+.botao--contorno {
+  color: var(--cor-destaque);
+  background: transparent;
+}
+
+.botao--contorno:hover {
+  color: #fff;
+  background: var(--cor-destaque);
+}
+
+.botao--crescer {
+  color: var(--cor-texto);
+  background: #ffd166;
+  border-color: #ffd166;
+}
+
+.botao--crescer:hover {
+  transform: scale(1.08);
+}
+
+.botao:active {
+  transform: scale(0.97);
+}
+
+/* ---------- 7. Projeto final: cafeteria ---------- */
+.projeto {
+  overflow: hidden;
+  background: var(--cor-superficie);
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio);
+}
+
+.projeto-topo {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 1.25rem;
+  color: #fff;
+  background: #3b2a20;
+}
+
+.projeto-logo {
+  margin: 0;
+  font-family: var(--fonte-titulo);
+  font-size: 1.4rem;
+}
+
+.projeto-topo a {
+  color: #f3e3d3;
+  text-decoration: none;
+}
+
+.projeto-topo a:hover {
+  color: #fff;
+  text-decoration: underline;
+}
+
+.projeto-hero {
+  padding: 2.5rem 1.25rem;
+  background: #f1e4d6;
+}
+
+.botao--cafe {
+  color: #fff;
+  background: #8a4b1f;
+  border-color: #8a4b1f;
+}
+
+.botao--cafe:hover {
+  background: #6b3814;
+  border-color: #6b3814;
+  transform: translateY(-2px);
+}
+
+.projeto-cardapio {
+  padding: 1.5rem 1.25rem;
+}
+
+.produtos {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+@media (min-width: 600px) {
+  .produtos {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.produto {
+  padding: 1rem;
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.produto:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 18px rgba(59, 42, 32, 0.18);
+}
+
+.produto p {
+  margin-bottom: 0.5rem;
+}
+
+.produto-preco {
+  margin-bottom: 0;
+  font-weight: 700;
+  color: #8a4b1f;
+}
+
+.projeto-rodape {
+  padding: 1rem 1.25rem;
+  color: #f3e3d3;
+  background: #3b2a20;
+  font-size: 0.95rem;
+}
+
+.projeto-rodape p {
+  margin: 0;
+}
+
+/* ---------- 8. Acessibilidade ---------- */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+  }
+}
+
+/* ==========================================================
+   Lição de JavaScript – estilos complementares
+   Carregado depois de licao-css.css, que traz a base
+   (variáveis, layout da página, .demo, .botao e afins).
+   ========================================================== */
+
+/* Elementos com o atributo hidden ficam realmente escondidos */
+[hidden] {
+  display: none !important;
+}
+
+/* ---------- Campos de formulário ---------- */
+label {
+  display: block;
+  margin-bottom: 0.25rem;
+  font-weight: 600;
+}
+
+input[type="text"] {
+  width: 100%;
+  max-width: 360px;
+  padding: 0.65rem 0.8rem;
+  font: inherit;
+  color: inherit;
+  background: var(--cor-superficie);
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio);
+}
+
+input[type="text"]:focus {
+  border-color: var(--cor-destaque);
+}
+
+.saudacao {
+  margin: 0.75rem 0 0;
+  font-size: 1.15rem;
+}
+
+/* ---------- Seção 2: mensagem ---------- */
+#mensagem {
+  padding: 0.75rem 1rem;
+  background: #e6ebf7;
+  border-radius: var(--raio);
+  font-weight: 600;
+}
+
+/* ---------- Seção 3: contador ---------- */
+.contador {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem;
+}
+
+output {
+  min-width: 3ch;
+  font-family: var(--fonte-titulo);
+  font-size: 2.5rem;
+  font-weight: 700;
+  text-align: center;
+}
+
+/* ---------- Seção 4: caixa de cor ---------- */
+.caixa-cor {
+  margin-bottom: 1rem;
+  padding: 2rem 1rem;
+  color: var(--cor-texto);
+  background: #e6ebf7;
+  border: 4px solid transparent;
+  border-radius: var(--raio);
+  text-align: center;
+  font-weight: 700;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease,
+    transform 0.3s ease,
+    border-color 0.3s ease;
+}
+
+.caixa-cor--destaque {
+  border: 4px dashed var(--cor-texto);
+  transform: scale(1.03);
+}
+
+/* ---------- Seção 5: card de mouse ---------- */
+.hover-card {
+  padding: 1.75rem 1rem;
+  background: var(--cor-superficie);
+  border: 2px solid var(--cor-borda);
+  border-radius: var(--raio);
+  text-align: center;
+  font-weight: 600;
+  transition:
+    background-color 0.25s ease,
+    color 0.25s ease,
+    border-color 0.25s ease;
+}
+
+.hover-card--ativo {
+  color: #fff;
+  background: var(--cor-destaque);
+  border-color: var(--cor-destaque-escura);
+}
+
+/* ---------- Seção 6: projeto (cartão de perfil) ---------- */
+.perfil {
+  max-width: 480px;
+  padding: 1.5rem;
+  color: var(--cor-texto);
+  background: var(--cor-superficie);
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio);
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease,
+    border-color 0.3s ease;
+}
+
+.perfil-topo {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.perfil-topo h3,
+.perfil-topo p {
+  margin: 0;
+}
+
+.perfil-topo p {
+  opacity: 0.8;
+}
+
+.perfil-avatar {
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  width: 64px;
+  height: 64px;
+  color: #fff;
+  background: var(--cor-destaque);
+  border-radius: 50%;
+  font-family: var(--fonte-titulo);
+  font-size: 1.6rem;
+  font-weight: 700;
+  transition: background-color 0.3s ease;
+}
+
+.perfil-acoes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+/* Tema escuro, ligado e desligado com classList.toggle */
+.perfil--escuro {
+  color: #e8ecf5;
+  background: var(--cor-texto);
+  border-color: var(--cor-texto);
+}
+
+.perfil--escuro .botao--contorno {
+  color: #9db4ff;
+  border-color: #9db4ff;
+}
+
+.perfil--escuro .botao--contorno:hover {
+  color: var(--cor-texto);
+  background: #9db4ff;
+}
