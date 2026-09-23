@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Blog do Matheus – HTML semântico</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- <header>: cabeçalho da página (logo, título, navegação) -->
+  <header>
+    <h1>Blog do Matheus</h1>
+    <p>Anotações de quem está aprendendo desenvolvimento web.</p>
+
+    <!-- <nav>: bloco principal de links de navegação -->
+    <nav aria-label="Menu principal">
+      <ul>
+        <li><a href="#artigos">Artigos</a></li>
+        <li><a href="#sobre">Sobre</a></li>
+        <li><a href="#contato">Contato</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- <main>: conteúdo principal, deve existir só um por página -->
+  <main>
+
+    <!-- <section>: agrupamento temático, sempre com um título -->
+    <section id="artigos">
+      <h2>Últimos artigos</h2>
+
+      <!-- <article>: conteúdo independente, que faria sentido sozinho -->
+      <article>
+        <header>
+          <h3>Por que usar HTML semântico?</h3>
+          <p>Publicado em <time datetime="2026-09-23">23 de setembro de 2026</time></p>
+        </header>
+
+        <p>
+          Tags semânticas descrevem o <strong>significado</strong> do conteúdo,
+          ajudando leitores de tela, buscadores e outras pessoas que leem o seu código.
+        </p>
+
+        <!-- <figure> + <figcaption>: imagem (ou código, gráfico) com legenda -->
+        <figure>
+          <img src="https://via.placeholder.com/600x200" alt="Esquema de uma página dividida em header, main e footer" width="600" height="200">
+          <figcaption>Estrutura básica de uma página semântica.</figcaption>
+        </figure>
+
+        <footer>
+          <p>Tags: <a href="#">HTML</a>, <a href="#">Acessibilidade</a></p>
+        </footer>
+      </article>
+    </section>
+
+    <section id="sobre">
+      <h2>Sobre</h2>
+      <p>Meu nome é Matheus e estou estudando desenvolvimento web.</p>
+    </section>
+
+    <section id="contato">
+      <h2>Contato</h2>
+
+      <!-- <form>, <label> e <input> ligados por for/id: acessível e clicável -->
+      <form action="#" method="post">
+        <p>
+          <label for="nome">Nome</label><br>
+          <input type="text" id="nome" name="nome" required>
+        </p>
+        <p>
+          <label for="email">E-mail</label><br>
+          <input type="email" id="email" name="email" required>
+        </p>
+        <p>
+          <label for="mensagem">Mensagem</label><br>
+          <textarea id="mensagem" name="mensagem" rows="4" required></textarea>
+        </p>
+        <button type="submit">Enviar mensagem</button>
+      </form>
+    </section>
+
+  </main>
+
+  <!-- <aside>: conteúdo complementar, fora do fluxo principal -->
+  <aside>
+    <h2>Recursos</h2>
+    <ul>
+      <li><a href="https://developer.mozilla.org/pt-BR/docs/Web/HTML">Documentação de HTML no MDN</a></li>
+    </ul>
+  </aside>
+
+  <!-- <footer>: rodapé da página (direitos, links secundários) -->
+  <footer>
+    <p><small>&copy; 2026 Matheus. Todos os direitos reservados.</small></p>
+  </footer>
+
+</body>
+</html>
