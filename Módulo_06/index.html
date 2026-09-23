@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lição de CSS – do estilo básico ao layout responsivo</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header>
+    <h1>Lição de CSS</h1>
+    <p>Do estilo básico ao projeto final responsivo.</p>
+
+    <nav aria-label="Menu da lição">
+      <ul>
+        <li><a href="#estilos">Estilos</a></li>
+        <li><a href="#classes-ids">Classes e IDs</a></li>
+        <li><a href="#box-model">Box Model</a></li>
+        <li><a href="#flexbox">Flexbox</a></li>
+        <li><a href="#grid">Grid</a></li>
+        <li><a href="#responsivo">Responsivo</a></li>
+        <li><a href="#botoes">Botões</a></li>
+        <li><a href="#projeto">Projeto final</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+
+    <!-- 1. ESTILOS BÁSICOS -->
+    <section id="estilos">
+      <h2>1. Estilos básicos: cores, fontes e seletores</h2>
+      <p>
+        O seletor diz <strong>quem</strong> recebe o estilo; as propriedades dizem
+        <strong>como</strong> ele fica. Abaixo, três seletores diferentes atuando em parágrafos.
+      </p>
+
+      <div class="demo">
+        <p>Parágrafo comum, estilizado pelo seletor de elemento <code>p</code>.</p>
+        <p class="destaque">Parágrafo com a classe <code>.destaque</code>.</p>
+        <p id="aviso">Parágrafo com o id <code>#aviso</code>.</p>
+        <p>Também dá para estilizar um <span class="marca">trecho dentro do texto</span>.</p>
+      </div>
+
+      <pre><code>p { color: #1b2333; font-family: system-ui, sans-serif; }
+.destaque { background: #fff3b0; font-weight: 700; }
+#aviso { border-left: 4px solid #2748d9; padding-left: 1rem; }
+.marca { color: #c2185b; text-decoration: underline; }</code></pre>
+    </section>
+
+    <!-- 2. CLASSES E IDs -->
+    <section id="classes-ids">
+      <h2>2. Classes e IDs</h2>
+      <p>
+        A <strong>classe</strong> (<code>.nome</code>) pode ser usada em vários elementos.
+        O <strong>id</strong> (<code>#nome</code>) é único na página e tem mais peso que a classe.
+      </p>
+
+      <div class="cartoes">
+        <div class="cartao">Cartão comum<br><small>class="cartao"</small></div>
+        <div class="cartao cartao--ouro">Cartão dourado<br><small>class="cartao cartao--ouro"</small></div>
+        <div class="cartao" id="cartao-unico">Cartão único<br><small>id="cartao-unico"</small></div>
+      </div>
+
+      <pre><code>.cartao { padding: 1rem; border: 1px solid #d9dfeb; }
+.cartao--ouro { background: #fff8dc; border-color: #c9a227; }
+#cartao-unico { border: 3px double #2748d9; }</code></pre>
+    </section>
+
+    <!-- 3. BOX MODEL -->
+    <section id="box-model">
+      <h2>3. Box Model: margin, border e padding</h2>
+      <p>
+        Todo elemento é uma caixa com quatro camadas: o <strong>conteúdo</strong>, o
+        <strong>padding</strong> (espaço interno), a <strong>borda</strong> e a
+        <strong>margin</strong> (espaço externo).
+      </p>
+
+      <figure>
+        <div class="bm bm-margem">
+          <span>margin</span>
+          <div class="bm bm-borda">
+            <span>border</span>
+            <div class="bm bm-padding">
+              <span>padding</span>
+              <div class="bm bm-conteudo">conteúdo</div>
+            </div>
+          </div>
+        </div>
+        <figcaption>As camadas do Box Model, de fora para dentro.</figcaption>
+      </figure>
+
+      <pre><code>* { box-sizing: border-box; } /* padding e borda entram na largura */
+
+.caixa {
+  width: 300px;
+  padding: 1rem;
+  border: 4px solid #1b2333;
+  margin: 1.5rem auto;
+}</code></pre>
+    </section>
+
+    <!-- 4. FLEXBOX -->
+    <section id="flexbox">
+      <h2>4. Layout com Flexbox</h2>
+      <p>
+        O Flexbox organiza itens em <strong>uma dimensão</strong> (linha ou coluna).
+        Com <code>justify-content</code> e <code>align-items</code> você controla o alinhamento.
+      </p>
+
+      <div class="demo">
+        <div class="flex-linha">
+          <div class="flex-item">Item 1</div>
+          <div class="flex-item flex-item--alto">Item 2 (mais alto)</div>
+          <div class="flex-item">Item 3</div>
+        </div>
+      </div>
+
+      <p>Com <code>flex-wrap</code>, os itens quebram de linha quando falta espaço:</p>
+
+      <div class="demo">
+        <div class="flex-quebra">
+          <div class="flex-item">A</div>
+          <div class="flex-item">B</div>
+          <div class="flex-item">C</div>
+          <div class="flex-item">D</div>
+          <div class="flex-item">E</div>
+        </div>
+      </div>
+
+      <pre><code>.flex-linha {
+  display: flex;
+  justify-content: space-between; /* eixo principal */
+  align-items: center;            /* eixo cruzado */
+  gap: 1rem;
+}
+.flex-quebra { display: flex; flex-wrap: wrap; gap: .75rem; }
+.flex-quebra .flex-item { flex: 1 1 140px; }</code></pre>
+    </section>
+
+    <!-- 5. GRID -->
+    <section id="grid">
+      <h2>5. Organização de páginas com Grid</h2>
+      <p>
+        O Grid trabalha em <strong>duas dimensões</strong> (linhas e colunas). Com
+        <code>grid-template-areas</code> você desenha a página com nomes.
+      </p>
+
+      <div class="grid-pagina">
+        <div class="gp gp-topo">topo</div>
+        <div class="gp gp-menu">menu</div>
+        <div class="gp gp-conteudo">conteúdo</div>
+        <div class="gp gp-rodape">rodapé</div>
+      </div>
+
+      <pre><code>.grid-pagina {
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  grid-template-areas:
+    "topo    topo"
+    "menu    conteudo"
+    "rodape  rodape";
+  gap: .5rem;
+}
+.gp-topo { grid-area: topo; }</code></pre>
+    </section>
+
+    <!-- 6. RESPONSIVO -->
+    <section id="responsivo">
+      <h2>6. Design responsivo</h2>
+      <p>
+        A página se adapta ao tamanho da tela com <strong>media queries</strong>.
+        Começamos pelo celular (mobile first) e aumentamos as colunas conforme a tela cresce.
+        Redimensione a janela do navegador para ver a grade abaixo mudar.
+      </p>
+
+      <div class="grade-responsiva">
+        <div class="mini-card">Card 1</div>
+        <div class="mini-card">Card 2</div>
+        <div class="mini-card">Card 3</div>
+        <div class="mini-card">Card 4</div>
+      </div>
+
+      <table>
+        <caption>Pontos de quebra usados nesta lição</caption>
+        <thead>
+          <tr>
+            <th scope="col">Dispositivo</th>
+            <th scope="col">Largura da tela</th>
+            <th scope="col">Colunas</th>
+            <th scope="col">Regra</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">Mobile</th>
+            <td>até 599px</td>
+            <td>1</td>
+            <td>estilo padrão</td>
+          </tr>
+          <tr>
+            <th scope="row">Tablet</th>
+            <td>600px a 959px</td>
+            <td>2</td>
+            <td><code>@media (min-width: 600px)</code></td>
+          </tr>
+          <tr>
+            <th scope="row">Desktop</th>
+            <td>960px ou mais</td>
+            <td>4</td>
+            <td><code>@media (min-width: 960px)</code></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <pre><code>.grade-responsiva { display: grid; gap: 1rem; grid-template-columns: 1fr; }
+
+@media (min-width: 600px) {
+  .grade-responsiva { grid-template-columns: repeat(2, 1fr); }
+}
+@media (min-width: 960px) {
+  .grade-responsiva { grid-template-columns: repeat(4, 1fr); }
+}</code></pre>
+    </section>
+
+    <!-- 7. BOTÕES -->
+    <section id="botoes">
+      <h2>7. Botões interativos com transições</h2>
+      <p>
+        A propriedade <code>transition</code> suaviza a mudança entre o estado normal e o
+        <code>:hover</code>. Passe o mouse (ou use a tecla Tab) sobre os botões.
+      </p>
+
+      <div class="demo botoes">
+        <button type="button" class="botao botao--primario">Elevar</button>
+        <button type="button" class="botao botao--contorno">Preencher</button>
+        <button type="button" class="botao botao--crescer">Crescer</button>
+      </div>
+
+      <pre><code>.botao {
+  padding: .7rem 1.4rem;
+  border: 2px solid #2748d9;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color .25s ease, transform .25s ease, box-shadow .25s ease;
+}
+.botao--primario:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 14px rgba(39, 72, 217, .35);
+}</code></pre>
+    </section>
+
+    <!-- 8. PROJETO FINAL -->
+    <section id="projeto">
+      <h2>8. Projeto final: página da cafeteria</h2>
+      <p>
+        Um mini site que reúne tudo: seletores, classes, Box Model, Flexbox no topo,
+        Grid nos produtos, botões com transição e responsividade.
+      </p>
+
+      <article class="projeto">
+        <header class="projeto-topo">
+          <p class="projeto-logo">Grão Doce</p>
+          <nav aria-label="Menu da cafeteria">
+            <ul>
+              <li><a href="#projeto-cardapio">Cardápio</a></li>
+              <li><a href="#projeto-contato">Contato</a></li>
+            </ul>
+          </nav>
+        </header>
+
+        <section class="projeto-hero">
+          <h3>Café fresco, todo dia</h3>
+          <p>Grãos selecionados, torra artesanal e um lugar tranquilo para conversar.</p>
+          <button type="button" class="botao botao--cafe">Ver o cardápio</button>
+        </section>
+
+        <section class="projeto-cardapio" id="projeto-cardapio">
+          <h4>Cardápio</h4>
+          <div class="produtos">
+            <div class="produto">
+              <h5>Espresso</h5>
+              <p>Intenso e encorpado.</p>
+              <p class="produto-preco">R$ 6,00</p>
+            </div>
+            <div class="produto">
+              <h5>Cappuccino</h5>
+              <p>Com espuma cremosa de leite.</p>
+              <p class="produto-preco">R$ 10,00</p>
+            </div>
+            <div class="produto">
+              <h5>Pão de queijo</h5>
+              <p>Quentinho, saindo do forno.</p>
+              <p class="produto-preco">R$ 5,00</p>
+            </div>
+          </div>
+        </section>
+
+        <footer class="projeto-rodape" id="projeto-contato">
+          <p>Rua das Flores, 123 · Aberto todos os dias, das 8h às 19h</p>
+        </footer>
+      </article>
+    </section>
+
+  </main>
+
+  <aside>
+    <h2>Resumo da lição</h2>
+    <dl>
+      <dt>Seletor</dt>
+      <dd>Aponta quais elementos recebem o estilo.</dd>
+
+      <dt>Classe (.)</dt>
+      <dd>Reutilizável em vários elementos.</dd>
+
+      <dt>ID (#)</dt>
+      <dd>Único na página e mais forte que a classe.</dd>
+
+      <dt>Box Model</dt>
+      <dd>Conteúdo, padding, borda e margin.</dd>
+
+      <dt>Flexbox</dt>
+      <dd>Layout em uma dimensão.</dd>
+
+      <dt>Grid</dt>
+      <dd>Layout em linhas e colunas.</dd>
+
+      <dt>Media query</dt>
+      <dd>Muda o estilo conforme a tela.</dd>
+
+      <dt>transition</dt>
+      <dd>Suaviza mudanças de estilo.</dd>
+    </dl>
+  </aside>
+
+  <footer>
+    <p><small>&copy; 2026 Matheus. Lição de CSS.</small></p>
+  </footer>
+
+</body>
+</html>
